@@ -1,0 +1,284 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.market.dao.ProMsgMapper">
+  <resultMap id="BaseResultMap" type="com.market.model.ProMsg">
+    <id column="id" jdbcType="INTEGER" property="id" />
+        <result column="pro_title" property="proTitle" jdbcType="VARCHAR" />
+  <result column="pro_img" property="proImg" jdbcType="VARCHAR" />
+  <result column="pid" property="pid" jdbcType="INTEGER" />
+  <result column="pro_price" property="proPrice" jdbcType="DOUBLE" />
+  <result column="pro_stock_num" property="proStockNum" jdbcType="INTEGER" />
+  <result column="pro_intro" property="proIntro" jdbcType="VARCHAR" />
+  <result column="pro_detail" property="proDetail" jdbcType="VARCHAR" />
+  <result column="sale_num" property="saleNum" jdbcType="INTEGER" />
+  <result column="is_up" property="isUp" jdbcType="INTEGER" />
+
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+     id,pro_title,pro_img,pid,pro_price,pro_stock_num,pro_intro,pro_detail,sale_num,is_up
+  </sql>
+  <select id="selectByExample" parameterType="com.market.model.ProMsgExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from pro_msg
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+     <if test="startRow >= 0 and pageRows > 0">
+  limit ${startRow},${pageRows}
+  </if>
+
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+     from pro_msg
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+   delete from pro_msg
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.market.model.ProMsgExample">
+    delete from pro_msg
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.market.model.ProMsg">
+      <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+  SELECT LAST_INSERT_ID()
+</selectKey>
+
+      insert into pro_msg (pro_title,pro_img,pid,pro_price,pro_stock_num,pro_intro,pro_detail,sale_num,is_up)
+      values (	#{id,jdbcType=INTEGER},	#{proTitle,jdbcType=VARCHAR},	#{proImg,jdbcType=VARCHAR},	#{pid,jdbcType=INTEGER},	#{proPrice,jdbcType=DOUBLE},	#{proStockNum,jdbcType=INTEGER},	#{proIntro,jdbcType=VARCHAR},	#{proDetail,jdbcType=VARCHAR},	#{saleNum,jdbcType=INTEGER},	#{isUp,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.market.model.ProMsg">
+   <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+  SELECT LAST_INSERT_ID()
+</selectKey>
+
+    insert into pro_msg
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null" >
+	  id,
+ </if>
+<if test="proTitle != null" >
+	  pro_title,
+ </if>
+<if test="proImg != null" >
+	  pro_img,
+ </if>
+<if test="pid != null" >
+	  pid,
+ </if>
+<if test="proPrice != null" >
+	  pro_price,
+ </if>
+<if test="proStockNum != null" >
+	  pro_stock_num,
+ </if>
+<if test="proIntro != null" >
+	  pro_intro,
+ </if>
+<if test="proDetail != null" >
+	  pro_detail,
+ </if>
+<if test="saleNum != null" >
+	  sale_num,
+ </if>
+<if test="isUp != null" >
+	  is_up
+ </if>
+
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+         <if test="id != null" >
+	 #{id,jdbcType=INTEGER},
+	 </if>
+  <if test="proTitle != null" >
+	 #{proTitle,jdbcType=VARCHAR},
+	 </if>
+  <if test="proImg != null" >
+	 #{proImg,jdbcType=VARCHAR},
+	 </if>
+  <if test="pid != null" >
+	 #{pid,jdbcType=INTEGER},
+	 </if>
+  <if test="proPrice != null" >
+	 #{proPrice,jdbcType=DOUBLE},
+	 </if>
+  <if test="proStockNum != null" >
+	 #{proStockNum,jdbcType=INTEGER},
+	 </if>
+  <if test="proIntro != null" >
+	 #{proIntro,jdbcType=VARCHAR},
+	 </if>
+  <if test="proDetail != null" >
+	 #{proDetail,jdbcType=VARCHAR},
+	 </if>
+  <if test="saleNum != null" >
+	 #{saleNum,jdbcType=INTEGER},
+	 </if>
+  <if test="isUp != null" >
+	 #{isUp,jdbcType=INTEGER},
+	 </if>
+
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.market.model.ProMsgExample" resultType="java.lang.Long">
+    select count(*) from pro_msg
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update pro_msg
+    <set>
+       <if test="record.proTitle != null" >
+	 pro_title = #{record.proTitle,jdbcType=VARCHAR},
+</if>
+ <if test="record.proImg != null" >
+	 pro_img = #{record.proImg,jdbcType=VARCHAR},
+</if>
+ <if test="record.pid != null" >
+	 pid = #{record.pid,jdbcType=INTEGER},
+</if>
+ <if test="record.proPrice != null" >
+	 pro_price = #{record.proPrice,jdbcType=DOUBLE},
+</if>
+ <if test="record.proStockNum != null" >
+	 pro_stock_num = #{record.proStockNum,jdbcType=INTEGER},
+</if>
+ <if test="record.proIntro != null" >
+	 pro_intro = #{record.proIntro,jdbcType=VARCHAR},
+</if>
+ <if test="record.proDetail != null" >
+	 pro_detail = #{record.proDetail,jdbcType=VARCHAR},
+</if>
+ <if test="record.saleNum != null" >
+	 sale_num = #{record.saleNum,jdbcType=INTEGER},
+</if>
+ <if test="record.isUp != null" >
+	 is_up = #{record.isUp,jdbcType=INTEGER}
+</if>
+
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update pro_msg
+    set 
+    				pro_title = #{record.proTitle,jdbcType=VARCHAR},	pro_img = #{record.proImg,jdbcType=VARCHAR},	pid = #{record.pid,jdbcType=INTEGER},	pro_price = #{record.proPrice,jdbcType=DOUBLE},	pro_stock_num = #{record.proStockNum,jdbcType=INTEGER},	pro_intro = #{record.proIntro,jdbcType=VARCHAR},	pro_detail = #{record.proDetail,jdbcType=VARCHAR},	sale_num = #{record.saleNum,jdbcType=INTEGER},	is_up = #{record.isUp,jdbcType=INTEGER}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.market.model.ProMsg">
+    update pro_msg
+    <set>
+       <if test="proTitle != null" >
+	 pro_title = #{proTitle,jdbcType=VARCHAR},
+</if>
+ <if test="proImg != null" >
+	 pro_img = #{proImg,jdbcType=VARCHAR},
+</if>
+ <if test="pid != null" >
+	 pid = #{pid,jdbcType=INTEGER},
+</if>
+ <if test="proPrice != null" >
+	 pro_price = #{proPrice,jdbcType=DOUBLE},
+</if>
+ <if test="proStockNum != null" >
+	 pro_stock_num = #{proStockNum,jdbcType=INTEGER},
+</if>
+ <if test="proIntro != null" >
+	 pro_intro = #{proIntro,jdbcType=VARCHAR},
+</if>
+ <if test="proDetail != null" >
+	 pro_detail = #{proDetail,jdbcType=VARCHAR},
+</if>
+ <if test="saleNum != null" >
+	 sale_num = #{saleNum,jdbcType=INTEGER},
+</if>
+ <if test="isUp != null" >
+	 is_up = #{isUp,jdbcType=INTEGER}
+</if>
+
+    </set>
+     where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.market.model.ProMsg">
+    update pro_msg
+    set 
+     			pro_title = #{proTitle,jdbcType=VARCHAR},	pro_img = #{proImg,jdbcType=VARCHAR},	pid = #{pid,jdbcType=INTEGER},	pro_price = #{proPrice,jdbcType=DOUBLE},	pro_stock_num = #{proStockNum,jdbcType=INTEGER},	pro_intro = #{proIntro,jdbcType=VARCHAR},	pro_detail = #{proDetail,jdbcType=VARCHAR},	sale_num = #{saleNum,jdbcType=INTEGER},	is_up = #{isUp,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  
+</mapper>

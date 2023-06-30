@@ -1,0 +1,19 @@
+<component name="ArtifactManager">
+  <artifact type="exploded-war" name="market_sys:war exploded">
+    <output-path>$PROJECT_DIR$/out/artifacts/market_sys_war_exploded</output-path>
+    <root id="root">
+      <element id="directory" name="WEB-INF">
+        <element id="directory" name="classes">
+          <element id="module-output" name="market_sys" />
+        </element>
+        <element id="directory" name="lib">
+          <element id="library" level="module" name="junit4" module-name="market_sys" />
+          <element id="library" level="module" name="thumbnailator-0.4.8.jar" module-name="market_sys" />
+          <element id="library" level="module" name="javax.mail_1.6.0.jar" module-name="market_sys" />
+          <element id="library" level="module" name="json-lib-2.4-jdk15.jar" module-name="market_sys" />
+        </element>
+      </element>
+      <element id="javaee-facet-resources" facet="market_sys/web/Web" />
+    </root>
+  </artifact>
+</component>
